@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">LaborasRedui</string>
-    <string name="click_to_load_call_logs">Click to Load Call Logs</string>
+    <string name="click_to_load">Rodyti praleistus skambučius</string>
 </resources>

@@ -79,9 +79,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
         int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
         int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
-        int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
 
-        sb.append("<h4>Call Log Details <h4>");
+        sb.append("<h4>Praleisti skambučiai <h4>");
         sb.append("\n");
         sb.append("\n");
 
@@ -92,61 +91,49 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             String callType = managedCursor.getString(type);
             String callDate = managedCursor.getString(date);
             Date callDayTime = new Date(Long.valueOf(callDate));
-            String callDuration = managedCursor.getString(duration);
             String dir = null;
-
             int callTypeCode = Integer.parseInt(callType);
             switch (callTypeCode) {
                 case CallLog.Calls.OUTGOING_TYPE:
-                    dir = "Outgoing";
-                    break;
-
                 case CallLog.Calls.INCOMING_TYPE:
-                    dir = "Incoming";
+                    dir = "null";
                     break;
 
                 case CallLog.Calls.MISSED_TYPE:
-                    dir = "Missed";
+                    dir = "Praleistas";
                     break;
             }
-
-            sb.append("<tr>")
-                    .append("<td>Phone Number: </td>")
-                    .append("<td><strong>")
-                    .append(phNumber)
-                    .append("</strong></td>");
-            sb.append("</tr>");
-            sb.append("<br/>");
-            sb.append("<tr>")
-                    .append("<td>Call Type:</td>")
-                    .append("<td><strong>")
-                    .append(dir)
-                    .append("</strong></td>");
-            sb.append("</tr>");
-            sb.append("<br/>");
-            sb.append("<tr>")
-                    .append("<td>Date & Time:</td>")
-                    .append("<td><strong>")
-                    .append(callDayTime)
-                    .append("</strong></td>");
-            sb.append("</tr>");
-            sb.append("<br/>");
-            sb.append("<tr>")
-                    .append("<td>Call Duration (Seconds):</td>")
-                    .append("<td><strong>")
-                    .append(callDuration)
-                    .append("</strong></td>");
-            sb.append("</tr>");
-            sb.append("<br/>");
-            sb.append("<br/>");
+            if (dir == "null") {
+            } else {
+                sb.append("<tr>")
+                        .append("<td>Telefono numeris: </td>")
+                        .append("<td><strong>")
+                        .append(phNumber)
+                        .append("</strong></td>");
+                sb.append("</tr>");
+                sb.append("<br/>");
+                sb.append("<tr>")
+                        .append("<td>Skambučio tipas:</td>")
+                        .append("<td><strong>")
+                        .append(dir)
+                        .append("</strong></td>");
+                sb.append("</tr>");
+                sb.append("<br/>");
+                sb.append("<tr>")
+                        .append("<td>Data ir laikas:</td>")
+                        .append("<td><strong>")
+                        .append(callDayTime)
+                        .append("</strong></td>");
+                sb.append("</tr>");
+                sb.append("<br/>");
+                sb.append("<br/>");
+            }
+            sb.append("</table>");
         }
-        sb.append("</table>");
+            managedCursor.close();
 
-        managedCursor.close();
-
-        callLogsTextView.setText(Html.fromHtml(sb.toString()));
-    }
-
+            callLogsTextView.setText(Html.fromHtml(sb.toString()));
+        }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         Log.d(TAG, "onLoaderReset()");
