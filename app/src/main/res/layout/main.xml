@@ -10,8 +10,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/update" />
+
     <ScrollView android:layout_width="match_parent"
-        android:layout_height="match_parent" android:layout_below="@+id/btn_call_log">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/reference">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,5 +31,13 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true" />
     </ScrollView>
+
+    <TextView
+        android:id="@+id/reference"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="" />
 
 </RelativeLayout>

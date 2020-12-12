@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">LaborasRedui</string>
+    <string name="app_name">Praleisti skambučiai</string>
     <string name="click_to_load">Rodyti praleistus skambučius</string>
+    <string name="update">Atnaujinti skambučių sąrašą</string>
 </resources>

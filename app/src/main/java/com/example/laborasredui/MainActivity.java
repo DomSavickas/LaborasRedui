@@ -17,8 +17,7 @@ import java.util.Date;
 
 public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "CallLog";
-    private static final int URL_LOADER = 1;
-
+    private static int URL_LOADER = 1;
     private TextView callLogsTextView;
 
     @Override
@@ -33,14 +32,27 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     private void initialize() {
         Log.d(TAG, "initialize()");
-
-        Button btnCallLog = (Button) findViewById(R.id.btn_call_log);
+        final Button btnUpdate=(Button) findViewById(R.id.btn_update); // update mygtukas
+        btnUpdate.setVisibility(View.GONE);
+        final Button btnCallLog = (Button) findViewById(R.id.btn_call_log); // show mygtukas
 
         btnCallLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     Log.d(TAG, "initialize() >> initialise loader");
+                    getLoaderManager().initLoader(URL_LOADER, null, MainActivity.this);
+                    btnCallLog.setVisibility(View.GONE);
+                    btnUpdate.setVisibility(View.VISIBLE);
+                }catch(Exception e){}
+            }
+        });
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Log.d(TAG, "initialize() >> initialise loader");
+                    URL_LOADER ++;
                     getLoaderManager().initLoader(URL_LOADER, null, MainActivity.this);
                 }catch(Exception e){}
             }
@@ -52,21 +64,19 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     @Override
     public Loader<Cursor> onCreateLoader(int loaderID, Bundle args) {
         Log.d(TAG, "onCreateLoader() >> loaderID : " + loaderID);
-
-        switch (loaderID) {
-            case URL_LOADER:
-                // Returns a new CursorLoader
-                return new CursorLoader(
-                        this,   // Parent activity context
-                        CallLog.Calls.CONTENT_URI,        // Table to query
-                        null,     // Projection to return
-                        null,            // No selection clause
-                        null,            // No selection arguments
-                        null             // Default sort order
-                );
-            default:
-                return null;
+        if (loaderID >0) {
+            return new CursorLoader(
+                    this,   // Parent activity context
+                    CallLog.Calls.CONTENT_URI,        // Table to query
+                    null,     // Projection to return
+                    null,            // No selection clause
+                    null,            // No selection arguments
+                    null             // Default sort order
+            );
+        } else {
+            return null;
         }
+
 
     }
 
@@ -79,7 +89,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
         int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
         int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
-
         sb.append("<h4>Praleisti skambučiai <h4>");
         sb.append("\n");
         sb.append("\n");
