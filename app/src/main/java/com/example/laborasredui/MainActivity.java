@@ -71,9 +71,9 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     null,     // Projection to return, null taip pat reiski, jog reiksme bus nenurodyta
                     null,            // No selection clause
                     null,            // No selection arguments
-                    null             // Default sort order
+                    CallLog.Calls.DATE + " DESC" //sorting by date
             );
-        } else {//jeigu loaderis netures reiksmes diddesnes uz nuli arba ji bus lygi nuliui, tai bus atliekamas zemiau skliaustuose kodas
+        } else {//jeigu loaderis netures reiksmes didesnes uz nuli arba ji bus lygi nuliui, tai bus atliekamas zemiau skliaustuose kodas
             return null; //grazins null, null yra 0 arba tuscia reiksme
         }
 
